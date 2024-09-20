@@ -19,22 +19,33 @@
   text-align: center;
 }
 
+.modal-content label {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.modal-content input {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
 .close-btn {
   background-color: red;
   color: white;
   border: none;
   padding: 10px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
-input[type="number"] {
+.pomodoro_grid input {
   border: none;
   background-color: rgba(0, 0, 0, 0.1);
-  width: 40px;
+  width: 50px;
   text-align: center;
   margin-left: 60px;
 }
+
 
 .pomodoro_grid {
   display: grid;

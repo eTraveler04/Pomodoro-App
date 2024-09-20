@@ -8,6 +8,11 @@ const timer = {
    pomodoroTime : '25:00',
    shortBreakTime : '5:00',
    longBreakTime : '10:00',
+
+   globalnyKolorP : "rgb(186, 73, 73)",
+   globalnyKolorS : "rgb(57, 112, 151)",
+   globalnyKolorL : "rgb(56, 133, 138)",
+   resztaKolor : "rgba(255, 255, 255, 0.1)"
 }
 
 
@@ -51,14 +56,12 @@ function pomodoro() {
   const timerDisplay = document.getElementById("timer");
   timerDisplay.innerHTML = timer.pomodoroTime;
 
-  let globalnyKolor = "rgb(186, 73, 73)";
-  let resztaKolor = "rgba(255, 255, 255, 0.1)"
   // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = globalnyKolor;
-  document.querySelector(".box").style.backgroundColor = resztaKolor;
-  document.querySelector(".header").style.backgroundColor = resztaKolor;
+  document.body.style.backgroundColor = timer.globalnyKolorP;
+  document.querySelector(".box").style.backgroundColor = timer.resztaKolor;
+  document.querySelector(".header").style.backgroundColor = timer.resztaKolor;
   document.querySelectorAll(".start_btn").forEach(przycisk => {
-    przycisk.style.color = globalnyKolor;
+    przycisk.style.color = timer.globalnyKolorP;
   });
 
 }
@@ -67,16 +70,12 @@ function shortBreak() {
   const timerDisplay = document.getElementById("timer");
   timerDisplay.innerHTML = timer.shortBreakTime;
 
-  // zmiana koloru 
-
-  let globalnyKolor = "rgb(57, 112, 151)";
-  let resztaKolor = "rgba(255, 255, 255, 0.1)"
   // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = globalnyKolor;
-  document.querySelector(".box").style.backgroundColor = resztaKolor;
-  document.querySelector(".header").style.backgroundColor = resztaKolor;
+  document.body.style.backgroundColor = timer.globalnyKolorS;
+  document.querySelector(".box").style.backgroundColor = timer.resztaKolor;
+  document.querySelector(".header").style.backgroundColor = timer.resztaKolor;
   document.querySelectorAll(".start_btn").forEach(przycisk => {
-    przycisk.style.color = globalnyKolor;
+    przycisk.style.color = timer.globalnyKolorS;
   });
 
 
@@ -87,14 +86,12 @@ function longBreak() {
   const timerDisplay = document.getElementById("timer");
   timerDisplay.innerHTML = timer.longBreakTime;
 
-  let globalnyKolor = "rgb(56, 133, 138)";
-  let resztaKolor = "rgba(255, 255, 255, 0.1)"
   // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = globalnyKolor;
-  document.querySelector(".box").style.backgroundColor = resztaKolor;
-  document.querySelector(".header").style.backgroundColor = resztaKolor;
+  document.body.style.backgroundColor = timer.globalnyKolorL;
+  document.querySelector(".box").style.backgroundColor = timer.resztaKolor;
+  document.querySelector(".header").style.backgroundColor = timer.resztaKolor;
   document.querySelectorAll(".start_btn").forEach(przycisk => {
-    przycisk.style.color = globalnyKolor;
+    przycisk.style.color = timer.globalnyKolorL;
   });
 
 
@@ -133,7 +130,6 @@ function startPomodoro() {
   }, 1000); // Odśwież co sekundę
 }
 
-
 function resetTimer() {
   clearInterval(timerInterval);
   timerInterval = null;
@@ -142,7 +138,6 @@ function resetTimer() {
   isRunning = false;
 
 }
-
 
 function toggleStartStop() {
   const button = document.getElementById("pomodoro_btn");
@@ -160,3 +155,25 @@ function toggleStartStop() {
   // Odwróć stan isRunning
   isRunning = !isRunning;
 }
+
+
+
+// Pobierz kolor tła 
+
+const pomodoroColorControl = document.getElementById('pomodoroColorControl');
+// Rozpocznij odtwarzanie alarmu po kliknięciu przycisku
+document.getElementById('pomodoroColorControl').addEventListener('input', function() {
+timer.globalnyKolorP = this.value;
+});
+
+const shortBreakColorControl = document.getElementById('shortBreakColorControl');
+// Rozpocznij odtwarzanie alarmu po kliknięciu przycisku
+document.getElementById('shortBreakColorControl').addEventListener('input', function() {
+timer.globalnyKolorS = this.value;
+});
+
+const longBreakColorControl = document.getElementById('longBreakColorControl');
+// Rozpocznij odtwarzanie alarmu po kliknięciu przycisku
+document.getElementById('longBreakColorControl').addEventListener('input', function() {
+timer.globalnyKolorL = this.value;
+});
