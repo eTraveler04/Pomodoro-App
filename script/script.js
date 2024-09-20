@@ -16,40 +16,6 @@ const timer = {
 }
 
 
-// Pobierz element suwaka
-const volumeControl = document.getElementById('volumeControl');
-// Rozpocznij odtwarzanie alarmu po kliknięciu przycisku
-document.getElementById('volumeControl').addEventListener('input', function() {
-snd.play();
-});
-document.getElementById('closeModalBtn').addEventListener('click', function() {
-snd.pause();
-});
-// Nasłuchiwacz zdarzeń na zmianę wartości suwaka głośności
-volumeControl.addEventListener('input', function() {
-    snd.volume = parseFloat(this.value); // Zmień głośność alarmu
-});
-
-// Pobierz element suwaka
-const pomodoroTimeControl = document.getElementById('pomodoro_input');
-// Nasłuchiwacz zdarzeń na zmianę wartości suwaka 
-pomodoroTimeControl.addEventListener('input', function() {
-  timer.pomodoroTime = this.value + ':00';
-});
-
-// Pobierz element suwaka
-const shortBreakTimeControl = document.getElementById('longBreak_input');
-// Nasłuchiwacz zdarzeń na zmianę wartości suwaka 
-shortBreakTimeControl.addEventListener('input', function() {
-  timer.shortBreakTime = this.value + ':00';
-});
-
-// Pobierz element suwaka
-const longBreakTimeControl = document.getElementById('shortBreak_input');
-// Nasłuchiwacz zdarzeń na zmianę wartości suwaka 
-longBreakTimeControl.addEventListener('input', function() {
-  timer.longBreakTime = this.value + ':00';
-});
 
 function pomodoro() {
   resetTimer()
@@ -157,23 +123,44 @@ function toggleStartStop() {
 }
 
 
-
+//----------------------------------------------------------------------------------
 // Pobierz kolor tła 
-
 const pomodoroColorControl = document.getElementById('pomodoroColorControl');
-// Rozpocznij odtwarzanie alarmu po kliknięciu przycisku
 document.getElementById('pomodoroColorControl').addEventListener('input', function() {
 timer.globalnyKolorP = this.value;
 });
-
 const shortBreakColorControl = document.getElementById('shortBreakColorControl');
-// Rozpocznij odtwarzanie alarmu po kliknięciu przycisku
 document.getElementById('shortBreakColorControl').addEventListener('input', function() {
 timer.globalnyKolorS = this.value;
 });
-
 const longBreakColorControl = document.getElementById('longBreakColorControl');
-// Rozpocznij odtwarzanie alarmu po kliknięciu przycisku
 document.getElementById('longBreakColorControl').addEventListener('input', function() {
 timer.globalnyKolorL = this.value;
 });
+//----------------------------------------------------------------------------------
+// Pobierz element suwaka
+const volumeControl = document.getElementById('volumeControl');
+document.getElementById('volumeControl').addEventListener('input', function() {
+snd.play();
+});
+document.getElementById('closeModalBtn').addEventListener('click', function() {
+snd.pause();
+});
+volumeControl.addEventListener('input', function() {
+    snd.volume = parseFloat(this.value); // Zmień głośność alarmu
+});
+//----------------------------------------------------------------------------------
+// Ustawienia czasu timerów 
+const pomodoroTimeControl = document.getElementById('pomodoro_input');
+pomodoroTimeControl.addEventListener('input', function() {
+  timer.pomodoroTime = this.value + ':00';
+});
+const shortBreakTimeControl = document.getElementById('longBreak_input');
+shortBreakTimeControl.addEventListener('input', function() {
+  timer.shortBreakTime = this.value + ':00';
+});
+const longBreakTimeControl = document.getElementById('shortBreak_input');
+longBreakTimeControl.addEventListener('input', function() {
+  timer.longBreakTime = this.value + ':00';
+});
+//----------------------------------------------------------------------------------
