@@ -1,7 +1,7 @@
 let timerInterval;
 let timeLeft; 
 let isRunning = false;
-let snd = new Audio('alarm.mp3');
+let snd = new Audio('rest/alarm.mp3');
 
 
 const timer = {
@@ -14,8 +14,6 @@ const timer = {
    globalnyKolorL : "rgb(56, 133, 138)",
    resztaKolor : "rgba(255, 255, 255, 0.1)"
 }
-
-
 
 function pomodoro() {
   resetTimer()
@@ -59,8 +57,6 @@ function longBreak() {
   document.querySelectorAll(".start_btn").forEach(przycisk => {
     przycisk.style.color = timer.globalnyKolorL;
   });
-
-
 }
 
 function startPomodoro() {
@@ -121,7 +117,6 @@ function toggleStartStop() {
   // Odwróć stan isRunning
   isRunning = !isRunning;
 }
-
 
 //----------------------------------------------------------------------------------
 // Pobierz kolor tła 
