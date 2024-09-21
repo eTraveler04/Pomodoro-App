@@ -18,40 +18,19 @@ function pomodoro() {
   resetTimer();
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.pomodoroTime;
-
-  // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = timer.globalnyKolorP;
-  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
-  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
-  document.querySelectorAll('.start_btn').forEach((przycisk) => {
-    przycisk.style.color = timer.globalnyKolorP;
-  });
+  changeColorP();
 }
 function shortBreak() {
   resetTimer();
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.shortBreakTime;
-
-  // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = timer.globalnyKolorS;
-  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
-  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
-  document.querySelectorAll('.start_btn').forEach((przycisk) => {
-    przycisk.style.color = timer.globalnyKolorS;
-  });
+  changeColorS();
 }
 function longBreak() {
   resetTimer();
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.longBreakTime;
-
-  // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = timer.globalnyKolorL;
-  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
-  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
-  document.querySelectorAll('.start_btn').forEach((przycisk) => {
-    przycisk.style.color = timer.globalnyKolorL;
-  });
+  changeColorL();
 }
 function startPomodoro() {
   const timerDisplay = document.getElementById('timer');
@@ -115,6 +94,7 @@ document
   .getElementById('pomodoroColorControl')
   .addEventListener('input', function () {
     timer.globalnyKolorP = this.value;
+    changeColorP();
   });
 const shortBreakColorControl = document.getElementById(
   'shortBreakColorControl'
@@ -123,13 +103,43 @@ document
   .getElementById('shortBreakColorControl')
   .addEventListener('input', function () {
     timer.globalnyKolorS = this.value;
+    changeColorS();
   });
 const longBreakColorControl = document.getElementById('longBreakColorControl');
 document
   .getElementById('longBreakColorControl')
   .addEventListener('input', function () {
     timer.globalnyKolorL = this.value;
+    changeColorL();
   });
+
+function changeColorP() {
+  // Zmiana koloru tła body i kontenera
+  document.body.style.backgroundColor = timer.globalnyKolorP;
+  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
+  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
+  document.querySelectorAll('.start_btn').forEach((przycisk) => {
+    przycisk.style.color = timer.globalnyKolorP;
+  });
+}
+function changeColorL() {
+  // Zmiana koloru tła body i kontenera
+  document.body.style.backgroundColor = timer.globalnyKolorL;
+  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
+  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
+  document.querySelectorAll('.start_btn').forEach((przycisk) => {
+    przycisk.style.color = timer.globalnyKolorL;
+  });
+}
+function changeColorS() {
+  // Zmiana koloru tła body i kontenera
+  document.body.style.backgroundColor = timer.globalnyKolorS;
+  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
+  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
+  document.querySelectorAll('.start_btn').forEach((przycisk) => {
+    przycisk.style.color = timer.globalnyKolorS;
+  });
+}
 //----------------------------------------------------------------------------------
 // Pobierz element suwaka
 const volumeControl = document.getElementById('volumeControl');
@@ -142,6 +152,7 @@ document.getElementById('closeModalBtn').addEventListener('click', function () {
 volumeControl.addEventListener('input', function () {
   snd.volume = parseFloat(this.value); // Zmień głośność alarmu
 });
+
 //----------------------------------------------------------------------------------
 // Ustawienia czasu timerów
 
