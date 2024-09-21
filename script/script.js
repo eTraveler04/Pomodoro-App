@@ -14,20 +14,31 @@ const timer = {
   resztaKolor: 'rgba(255, 255, 255, 0.1)',
 };
 
+const TimerState = {
+  SHORT: 'short',
+  LONG: 'long',
+  POMODORO: 'pomodoro',
+};
+
+let currentState = TimerState.POMODORO;
+
 function pomodoro() {
   resetTimer();
+  currentState = TimerState.POMODORO;
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.pomodoroTime;
   changeColorP();
 }
 function shortBreak() {
   resetTimer();
+  currentState = TimerState.SHORT;
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.shortBreakTime;
   changeColorS();
 }
 function longBreak() {
   resetTimer();
+  currentState = TimerState.LONG;
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.longBreakTime;
   changeColorL();
@@ -94,7 +105,9 @@ document
   .getElementById('pomodoroColorControl')
   .addEventListener('input', function () {
     timer.globalnyKolorP = this.value;
-    changeColorP();
+    if (currentState == 'pomodoro') {
+      changeColorP();
+    }
   });
 const shortBreakColorControl = document.getElementById(
   'shortBreakColorControl'
@@ -103,14 +116,18 @@ document
   .getElementById('shortBreakColorControl')
   .addEventListener('input', function () {
     timer.globalnyKolorS = this.value;
-    changeColorS();
+    if (currentState == 'short') {
+      changeColorS();
+    }
   });
 const longBreakColorControl = document.getElementById('longBreakColorControl');
 document
   .getElementById('longBreakColorControl')
   .addEventListener('input', function () {
     timer.globalnyKolorL = this.value;
-    changeColorL();
+    if (currentState == 'long') {
+      changeColorL();
+    }
   });
 
 function changeColorP() {
