@@ -27,21 +27,21 @@ function pomodoro() {
   currentState = TimerState.POMODORO;
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.pomodoroTime;
-  changeColorP();
+  changeColor(timer.globalnyKolorP);
 }
 function shortBreak() {
   resetTimer();
   currentState = TimerState.SHORT;
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.shortBreakTime;
-  changeColorS();
+  changeColor(timer.globalnyKolorS);
 }
 function longBreak() {
   resetTimer();
   currentState = TimerState.LONG;
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.longBreakTime;
-  changeColorL();
+  changeColor(timer.globalnyKolorL);
 }
 function startPomodoro() {
   const timerDisplay = document.getElementById('timer');
@@ -106,7 +106,7 @@ document
   .addEventListener('input', function () {
     timer.globalnyKolorP = this.value;
     if (currentState == 'pomodoro') {
-      changeColorP();
+      changeColor(timer.globalnyKolorP);
     }
   });
 const shortBreakColorControl = document.getElementById(
@@ -117,7 +117,7 @@ document
   .addEventListener('input', function () {
     timer.globalnyKolorS = this.value;
     if (currentState == 'short') {
-      changeColorS();
+      changeColor(timer.globalnyKolorS);
     }
   });
 const longBreakColorControl = document.getElementById('longBreakColorControl');
@@ -126,37 +126,29 @@ document
   .addEventListener('input', function () {
     timer.globalnyKolorL = this.value;
     if (currentState == 'long') {
-      changeColorL();
+      changeColor(timer.globalnyKolorL);
     }
   });
 
-function changeColorP() {
-  // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = timer.globalnyKolorP;
-  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
-  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
+function changeColor(globalnyKolor) {
+  // Zmiana koloru tła body i kontenera z płynnym przejściem
+  document.body.style.transition = 'background-color 2s ease';
+  document.body.style.backgroundColor = globalnyKolor;
+
+  const box = document.querySelector('.box');
+  box.style.transition = 'background-color 2s ease';
+  box.style.backgroundColor = timer.resztaKolor;
+
+  const header = document.querySelector('.header');
+  header.style.transition = 'background-color 2s ease';
+  header.style.backgroundColor = timer.resztaKolor;
+
   document.querySelectorAll('.start_btn').forEach((przycisk) => {
-    przycisk.style.color = timer.globalnyKolorP;
+    przycisk.style.transition = 'color 2s ease';
+    przycisk.style.color = globalnyKolor;
   });
 }
-function changeColorL() {
-  // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = timer.globalnyKolorL;
-  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
-  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
-  document.querySelectorAll('.start_btn').forEach((przycisk) => {
-    przycisk.style.color = timer.globalnyKolorL;
-  });
-}
-function changeColorS() {
-  // Zmiana koloru tła body i kontenera
-  document.body.style.backgroundColor = timer.globalnyKolorS;
-  document.querySelector('.box').style.backgroundColor = timer.resztaKolor;
-  document.querySelector('.header').style.backgroundColor = timer.resztaKolor;
-  document.querySelectorAll('.start_btn').forEach((przycisk) => {
-    przycisk.style.color = timer.globalnyKolorS;
-  });
-}
+
 //----------------------------------------------------------------------------------
 // Pobierz element suwaka
 const volumeControl = document.getElementById('volumeControl');

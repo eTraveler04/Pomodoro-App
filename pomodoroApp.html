@@ -4,6 +4,7 @@
     <title>Pomodoro APP</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/settings.css" />
+    <link rel="stylesheet" href="styles/tasks.css" />
   </head>
   <body>
     <!-- HEADER -->
@@ -16,6 +17,7 @@
         />
       </div>
       <div class="header-buttons">
+        <button id="openTasksModalBtn">Tasks</button>
         <button id="openModalBtn">Settings</button>
         <button onclick="alert('jakiś problem?')">Report</button>
       </div>
@@ -27,10 +29,10 @@
       <div class="box">
         <div class="upper_buttons">
           <button id="pomodoro-btn" onclick="pomodoro()">POMODORO</button>
-          <button id="longBreak-btn" onclick="longBreak()">LONG BREAK</button>
           <button id="shortBreak-btn" onclick="shortBreak()">
             SHORT BREAK
           </button>
+          <button id="longBreak-btn" onclick="longBreak()">LONG BREAK</button>
         </div>
         <div class="jstimer">
           <p id="timer">25:00</p>
@@ -51,15 +53,68 @@
       </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Tasks Modal -->
+    <div id="tasksModal" class="taskModal">
+      <div class="task-content">
+        <!-- Close Modal Button -->
+        <div class="close-btn-div">
+          <button class="close-btn" id="closeTasksModalBtn">X</button>
+        </div>
+        <!-- Button to show the task form -->
+        <button id="showFormButton" onclick="showForm()">Add Task</button>
+
+        <!-- Task input form, initially hidden -->
+        <div id="taskForm" style="display: none">
+          <input
+            type="text"
+            id="taskTitle"
+            placeholder="What's the task title?"
+          />
+          <p style="font-size: 20px; padding-left: 10px">
+            Task Duration (pomodoros)
+          </p>
+
+          <div class="taskDurationDiv">
+            <input type="number" id="taskDuration" value="1" min="1" />
+            <button id="taskDurationIncreaseBtn">
+              <img src="rest/bxs-up-arrow.png" />
+            </button>
+            <button id="taskDurationDecreaseBtn">
+              <img src="rest/bxs-down-arrow.png" />
+            </button>
+          </div>
+
+          <p style="font-size: 20px; padding-left: 10px">
+            Choose length of this pomodoro cycle (Optional)
+          </p>
+
+          <div class="taskDurationDiv">
+            <input type="number" id="taskDuration1" value="25" min="1" />
+            <button id="taskDurationIncreaseBtn1">
+              <img src="rest/bxs-up-arrow.png" />
+            </button>
+            <button id="taskDurationDecreaseBtn1">
+              <img src="rest/bxs-down-arrow.png" />
+            </button>
+          </div>
+
+          <button id="cancelTaskBtn" onclick="cancelTaskBtn()">Cancel</button>
+          <button id="createTaskBtn" onclick="addTask()">Add</button>
+        </div>
+
+        <div id="taskContainer"></div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
     <div id="settingsModal" class="modal">
       <div class="modal-content">
         <h2>Time(minutes)</h2>
 
         <div class="pomodoro_grid">
           <label for="pomodoro">Pomodoro</label>
-          <label for="pomodoro">Long Break</label>
           <label for="pomodoro">Short Break</label>
+          <label for="pomodoro">Long Break</label>
 
           <input
             type="number"
@@ -84,12 +139,12 @@
           />
 
           <input type="color" id="pomodoroColorControl" />
-          <input type="color" id="longBreakColorControl" />
           <input type="color" id="shortBreakColorControl" />
+          <input type="color" id="longBreakColorControl" />
         </div>
 
         <div class="volume_control">
-          <label for="volumeControl">Głośność:</label>
+          <label for="volumeControl">Volume:</label>
           <input
             type="range"
             id="volumeControl"
@@ -105,7 +160,7 @@
     </div>
 
     <script>
-      // Otwórz modal
+      // Otwórz modal SETTINGS
       document
         .getElementById('openModalBtn')
         .addEventListener('click', function () {
@@ -127,6 +182,7 @@
         }
       };
     </script>
+    <script src="script/tasks.js"></script>
     <script src="script/script.js"></script>
   </body>
 </html>

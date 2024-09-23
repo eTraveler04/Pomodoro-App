@@ -72,6 +72,13 @@ button:active {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.line {
+  height: 5px;
+  width: 100%;
+  background-color: white;
 }
 
 .box {
