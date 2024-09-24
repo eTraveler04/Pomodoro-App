@@ -1,33 +1,10 @@
-function Task(name, duration) {
+function Task(name, duration, lengthOfCycle) {
   this.name = name;
   this.duration = duration;
+  this.lengthOfCycle = lengthOfCycle;
 }
 
 let tasks = [];
-
-function displayTasks(tasks) {
-  const taskContainer = document.getElementById('taskContainer');
-  taskContainer.innerHTML = ''; // Clear existing content
-
-  tasks.forEach((task) => {
-    // Create a new div for each task
-    let taskDiv = document.createElement('div');
-    taskDiv.classList.add('task');
-
-    // Add the task title
-    let taskTitle = document.createElement('h3');
-    taskTitle.innerText = task.title;
-    taskDiv.appendChild(taskTitle);
-
-    // Add the task description
-    let taskDescription = document.createElement('p');
-    taskDescription.innerText = task.description;
-    taskDiv.appendChild(taskDescription);
-
-    // Append the task div to the container
-    taskContainer.appendChild(taskDiv);
-  });
-}
 
 // Otwórz modal TASKS
 document
@@ -40,6 +17,8 @@ document
 document
   .getElementById('closeTasksModalBtn')
   .addEventListener('click', function () {
+    document.getElementById('showFormButton').style.display = 'block';
+    document.getElementById('taskForm').style.display = 'none';
     document.getElementById('tasksModal').style.display = 'none';
   });
 
@@ -47,6 +26,8 @@ document
 window.onclick = function (event) {
   const modal = document.getElementById('tasksModal');
   if (event.target == modal) {
+    document.getElementById('showFormButton').style.display = 'block';
+    document.getElementById('taskForm').style.display = 'none';
     modal.style.display = 'none';
   }
 };
@@ -60,23 +41,25 @@ function cancelTaskBtn() {
 
 // Function to handle adding a new task
 function addTask() {
+  showForm();
   const taskTitle = document.getElementById('taskTitle').value;
   const taskDuration = document.getElementById('taskDuration').value;
+  const lengthOfCycle = document.getElementById('taskDuration1').value;
 
-  if (taskTitle !== '' && taskDuration !== null) {
-    let task = new Task(taskTitle, taskDuration);
-    tasks.push(task); // Add the new task to the task array
-    console.log('jestem tu');
-
-    // Clear the input fields after adding the task
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDuration').value = 0;
-
-    // Hide the form again after adding the task
+  if (taskTitle !== '' && taskDuration !== null && lengthOfCycle !== null) {
+    let task = new Task(taskTitle, taskDuration, lengthOfCycle);
+    tasks.push(task);
+    clearInput();
     showForm();
   } else {
-    alert('Please fill out both the title and description!');
+    alert('Please fill all the blank spaces!');
   }
+}
+
+function clearInput() {
+  document.getElementById('taskTitle').value = '';
+  document.getElementById('taskDuration').value = 1;
+  document.getElementById('taskDuration1').value = 25;
 }
 
 // Function to show the task form
@@ -92,14 +75,7 @@ function showForm() {
   }
 }
 
-// Set event handlers
-// document.getElementById('createTaskBtn').onclick = addTask;
-
-// Display initial tasks
-displayTasks(tasks);
-
-// Przyciski input task duration
-
+// ----------------------------
 // Obsługa zwiększania wartości
 
 inputValueIncrease('taskDurationIncreaseBtn', 'taskDuration');
@@ -126,3 +102,18 @@ function inputValueDecrease(buttonID, inputID) {
     }
   });
 }
+// ----------------------------
+// Pobierz referencję do elementu w HTML (np. <ul>)
+const taskList = document.getElementById('taskList');
+
+// Iteruj po tablicy zadań i dodawaj elementy do listy
+tasks.forEach(function (task) {
+  // Tworzenie nowego elementu <li> dla każdego zadania
+  const listItem = document.createElement('li');
+
+  // Dodanie tekstu do elementu <li> (nazwa zadania i czas trwania)
+  listItem.textContent = `${task.name} - ${task.duration}`;
+
+  // Wstawienie <li> do <ul>
+  taskList.appendChild(listItem);
+});

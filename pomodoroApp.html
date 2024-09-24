@@ -74,7 +74,9 @@
           <button class="close-btn" id="closeTasksModalBtn">X</button>
         </div>
         <!-- Button to show the task form -->
-        <button id="showFormButton" onclick="showForm()">Add Task</button>
+        <div class="addTaskBtn">
+          <button id="showFormButton" onclick="showForm()">Add Task</button>
+        </div>
 
         <!-- Task input form, initially hidden -->
         <div id="taskForm" style="display: none">
@@ -115,7 +117,10 @@
           <button id="createTaskBtn" onclick="addTask()">Add</button>
         </div>
 
-        <div id="taskContainer"></div>
+        <h1 class="ls">Lista Zadań</h1>
+        <ul id="taskList"></ul>
+
+        <p>HALO</p>
       </div>
     </div>
 

@@ -13,3 +13,13 @@ buttons.forEach((button) => {
     this.classList.add('pressed');
   });
 });
+
+const button = document.getElementById('pomodoro_btn');
+
+button.addEventListener('click', function () {
+  if (!button.classList.contains('pressed')) {
+    button.classList.add('pressed');
+  } else {
+    button.classList.remove('pressed');
+  }
+});

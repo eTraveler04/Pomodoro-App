@@ -121,3 +121,13 @@
   padding: 10px;
   cursor: pointer;
 }
+
+.addTaskBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.taskList li {
+  color: red;
+}
