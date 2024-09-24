@@ -28,11 +28,23 @@
 
       <div class="box">
         <div class="upper_buttons">
-          <button id="pomodoro-btn" onclick="pomodoro()">POMODORO</button>
-          <button id="shortBreak-btn" onclick="shortBreak()">
+          <button class="toggle-button" id="pomodoro-btn" onclick="pomodoro()">
+            POMODORO
+          </button>
+          <button
+            class="toggle-button"
+            id="shortBreak-btn"
+            onclick="shortBreak()"
+          >
             SHORT BREAK
           </button>
-          <button id="longBreak-btn" onclick="longBreak()">LONG BREAK</button>
+          <button
+            class="toggle-button"
+            id="longBreak-btn"
+            onclick="longBreak()"
+          >
+            LONG BREAK
+          </button>
         </div>
         <div class="jstimer">
           <p id="timer">25:00</p>
@@ -58,6 +70,7 @@
       <div class="task-content">
         <!-- Close Modal Button -->
         <div class="close-btn-div">
+          <div></div>
           <button class="close-btn" id="closeTasksModalBtn">X</button>
         </div>
         <!-- Button to show the task form -->
@@ -85,7 +98,7 @@
           </div>
 
           <p style="font-size: 20px; padding-left: 10px">
-            Choose length of this pomodoro cycle (Optional)
+            Choose length of this pomodoro cycle
           </p>
 
           <div class="taskDurationDiv">
@@ -109,6 +122,13 @@
     <!-- Settings Modal -->
     <div id="settingsModal" class="modal">
       <div class="modal-content">
+        <!-- Close Modal Button -->
+        <div class="close-btn-div">
+          <div></div>
+          <button id="closeModalBtn" class="close-btn" id="closeTasksModalBtn">
+            X
+          </button>
+        </div>
         <h2>Time(minutes)</h2>
 
         <div class="pomodoro_grid">
@@ -128,14 +148,14 @@
             id="shortBreak_input"
             min="1"
             max="60"
-            value="10"
+            value="5"
           />
           <input
             type="number"
             id="longBreak_input"
             min="1"
             max="60"
-            value="5"
+            value="10"
           />
 
           <input type="color" id="pomodoroColorControl" />
@@ -144,7 +164,13 @@
         </div>
 
         <div class="volume_control">
-          <label for="volumeControl">Volume:</label>
+          <label class="volumeLabel" for="volumeControl">Volume:</label>
+          <select id="alarmList">
+            <option value="alarm1">alarm 1</option>
+            <option value="alarm2">alarm 2</option>
+            <option value="alarm3">alarm 3</option>
+            <option value="alarm4">alarm 4</option>
+          </select>
           <input
             type="range"
             id="volumeControl"
@@ -154,8 +180,6 @@
             value="1"
           />
         </div>
-
-        <button class="close-btn" id="closeModalBtn">Zamknij</button>
       </div>
     </div>
 
@@ -182,6 +206,7 @@
         }
       };
     </script>
+    <script src="script/buttons.js"></script>
     <script src="script/tasks.js"></script>
     <script src="script/script.js"></script>
   </body>

@@ -1,5 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head> </head>
-  <body></body>
+  <head>
+    <style>
+      .pressed {
+        background-color: #888; /* Kolor zmieniający się po wciśnięciu */
+        box-shadow: inset 0px 0px 5px #000; /* Efekt wciśnięcia */
+        transform: translateY(2px); /* Symulacja lekkiego przesunięcia w dół */
+      }
+    </style>
+  </head>
+  <body>
+    <button id="startButton" class="toggle-button">Start</button>
+
+    <script>
+      const button = document.getElementById('startButton');
+
+      button.addEventListener('click', function () {
+        // Jeśli przycisk nie jest wciśnięty, dodaj klasę 'pressed'
+        if (!button.classList.contains('pressed')) {
+          button.classList.add('pressed');
+          button.textContent = 'Stop'; // Zmieniamy też tekst na przycisku (opcjonalnie)
+        } else {
+          // Jeśli już jest wciśnięty, usuń klasę 'pressed'
+          button.classList.remove('pressed');
+          button.textContent = 'Start';
+        }
+      });
+    </script>
+  </body>
 </html>

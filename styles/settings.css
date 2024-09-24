@@ -27,6 +27,7 @@
 .modal-content input {
   font-size: 24px;
   margin-bottom: 5px;
+  border-radius: 4px;
 }
 
 .pomodoro_grid input {
@@ -42,4 +43,22 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 5px;
   margin-bottom: 20px;
+}
+
+#taskList {
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-size: 24px;
+  padding: 5px;
+  margin-left: 20px;
+}
+
+#volumeControl {
+  display: block;
+}
+
+.volumeLabel {
+  font-weight: bold;
+  font-size: 20px;
 }

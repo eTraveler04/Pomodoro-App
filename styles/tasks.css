@@ -46,7 +46,7 @@
   background-color: rgba(255, 255, 255, 0.1);
   color: black;
   padding: 15px 80px;
-  border: solid;
+  border: dashed;
 }
 
 #createTaskBtn,
@@ -111,16 +111,13 @@
 }
 
 .close-btn-div {
-  display: block;
-  justify-content: start;
-  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .close-btn {
-  background-color: red;
-  color: white;
+  color: rgb(145, 145, 145);
   border: none;
   padding: 10px;
   cursor: pointer;
-  margin-top: 20px;
 }

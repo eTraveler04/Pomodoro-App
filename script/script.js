@@ -1,48 +1,40 @@
 let timerInterval;
 let timeLeft;
 let isRunning = false;
-let snd = new Audio('rest/alarm.mp3');
 
 const timer = {
   pomodoroTime: '25:00',
   shortBreakTime: '5:00',
   longBreakTime: '10:00',
-
+  state: 'pomodoro',
   globalnyKolorP: 'rgb(186, 73, 73)',
   globalnyKolorS: 'rgb(57, 112, 151)',
   globalnyKolorL: 'rgb(56, 133, 138)',
   resztaKolor: 'rgba(255, 255, 255, 0.1)',
 };
 
-const TimerState = {
-  SHORT: 'short',
-  LONG: 'long',
-  POMODORO: 'pomodoro',
-};
-
-let currentState = TimerState.POMODORO;
-
 function pomodoro() {
   resetTimer();
-  currentState = TimerState.POMODORO;
+  currentState = 'pomodoro';
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.pomodoroTime;
   changeColor(timer.globalnyKolorP);
 }
 function shortBreak() {
   resetTimer();
-  currentState = TimerState.SHORT;
+  currentState = 'short';
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.shortBreakTime;
   changeColor(timer.globalnyKolorS);
 }
 function longBreak() {
   resetTimer();
-  currentState = TimerState.LONG;
+  currentState = 'long';
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.longBreakTime;
   changeColor(timer.globalnyKolorL);
 }
+
 function startPomodoro() {
   const timerDisplay = document.getElementById('timer');
 
@@ -65,7 +57,15 @@ function startPomodoro() {
 
     // Gdy licznik dojdzie do zera, zatrzymaj odliczanie
     if (timeLeft < 0) {
-      pomodoro();
+      if (timer.state === 'pomodoro') {
+        timer.state = 'short';
+        shortBreak();
+        console.log('zaczynamy short break');
+      } else {
+        timer.state = 'pomodoro';
+        pomodoro();
+        console.log('zaczynamy pomodoro');
+      }
       snd.play();
       document.addEventListener('click', function () {
         // Zatrzymaj dźwięk po kliknięciu
@@ -151,17 +151,29 @@ function changeColor(globalnyKolor) {
 
 //----------------------------------------------------------------------------------
 // Pobierz element suwaka
+
+let snd = new Audio('rest/alarm1.mp3');
+
 const volumeControl = document.getElementById('volumeControl');
+
 document.getElementById('volumeControl').addEventListener('input', function () {
   snd.play();
 });
 document.getElementById('closeModalBtn').addEventListener('click', function () {
   snd.pause();
+  snd.currentTime = 0; // Resetuj czas odtwarzania
 });
 volumeControl.addEventListener('input', function () {
   snd.volume = parseFloat(this.value); // Zmień głośność alarmu
 });
 
+// Nasłuchuj na zdarzenie "change" (zmiana alarmu)
+const alarmList = document.getElementById('alarmList');
+alarmList.addEventListener('change', function () {
+  snd.pause();
+  snd.currentTime = 0;
+  snd = new Audio(`rest/${alarmList.value}.mp3`);
+});
 //----------------------------------------------------------------------------------
 // Ustawienia czasu timerów
 
@@ -171,13 +183,13 @@ pomodoroTimeControl.addEventListener('input', function () {
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.pomodoroTime;
 });
-const shortBreakTimeControl = document.getElementById('longBreak_input');
+const shortBreakTimeControl = document.getElementById('shortBreak_input');
 shortBreakTimeControl.addEventListener('input', function () {
   timer.shortBreakTime = this.value + ':00';
   const timerDisplay = document.getElementById('timer');
   timerDisplay.innerHTML = timer.shortBreakTime;
 });
-const longBreakTimeControl = document.getElementById('shortBreak_input');
+const longBreakTimeControl = document.getElementById('longBreak_input');
 longBreakTimeControl.addEventListener('input', function () {
   timer.longBreakTime = this.value + ':00';
   const timerDisplay = document.getElementById('timer');
