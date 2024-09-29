@@ -1,10 +1,21 @@
-function Task(name, duration, lengthOfCycle) {
+function Task(name, duration, lengthOfCycle, id) {
+  this.id = id;
   this.name = name;
   this.duration = duration;
   this.lengthOfCycle = lengthOfCycle;
+  this.isCompleted = false;
 }
+Task.index = 0; // Zaczynamy od 0
 
 let tasks = [];
+
+function clearTasks() {
+  tasks.length = 0;
+
+  // Czyszczenie
+  let tasksDisplay = document.getElementById('task-display');
+  tasksDisplay.innerHTML = ``;
+}
 
 // Otwórz modal TASKS
 document
@@ -45,10 +56,41 @@ function addTask() {
   const taskTitle = document.getElementById('taskTitle').value;
   const taskDuration = document.getElementById('taskDuration').value;
   const lengthOfCycle = document.getElementById('taskDuration1').value;
+  const taskId = Date.now(); // unikalny identyfikator bazujący na czasie
 
   if (taskTitle !== '' && taskDuration !== null && lengthOfCycle !== null) {
-    let task = new Task(taskTitle, taskDuration, lengthOfCycle);
+    let task = new Task(taskTitle, taskDuration, lengthOfCycle, taskId);
     tasks.push(task);
+
+    // Znalezienie elementu DOM, do którego będziemy wstawiać dane
+    let tasksDisplay = document.getElementById('task-display');
+
+    // Tworzenie elementu div dla taska
+    let taskDiv = document.createElement('div');
+    taskDiv.classList.add('task-show');
+
+    // Tworzenie zawartości HTML dla taska
+    taskDiv.innerHTML = `
+      <h2><strong>Task Name:</strong> ${task.name}</h2>
+      <p><strong>Duration:</strong> ${task.duration} pomodoros</p>
+      <p><strong>Length of Cycle:</strong> ${task.lengthOfCycle} minutes</p>
+      <button class="delete-task">Delete</button>
+      <hr />
+    `;
+
+    taskDiv.setAttribute('data-id', task.id);
+    let deleteButton = taskDiv.querySelector('.delete-task');
+
+    deleteButton.addEventListener('click', function () {
+      taskDiv.remove();
+      // Pobranie unikalnego ID
+      let taskId = Number(taskDiv.getAttribute('data-id')); // Usunięcie odpowiedniego zadania z tablicy na podstawie ID
+      tasks = tasks.filter((task) => task.id !== taskId);
+    });
+    // Dodanie taskDiv do kontenera tasksDisplay
+    tasksDisplay.appendChild(taskDiv);
+
+    console.log(tasks);
     clearInput();
     showForm();
   } else {

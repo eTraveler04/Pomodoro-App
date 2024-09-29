@@ -16,6 +16,7 @@
   border-radius: 8px;
   width: 500px;
   height: 100%;
+  overflow-y: auto; /* Dodanie przewijania pionowego */
 }
 #taskContainer {
   margin: 20px;
@@ -130,4 +131,9 @@
 
 .taskList li {
   color: red;
+}
+
+.task-show {
+  background-color: rgba(97, 95, 95, 0.1);
+  padding: 10px;
 }
