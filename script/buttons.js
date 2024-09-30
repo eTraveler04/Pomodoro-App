@@ -1,6 +1,5 @@
 // Pobierz wszystkie trzy przyciski
 const buttons = document.querySelectorAll('.toggle-button');
-const button = document.getElementById('pomodoro_btn');
 
 // Przypisz event dla każdego przycisku
 buttons.forEach((button) => {
@@ -14,3 +13,6 @@ buttons.forEach((button) => {
     this.classList.add('pressed');
   });
 });
+
+const button = document.getElementById('pomodoro-button');
+button.click();

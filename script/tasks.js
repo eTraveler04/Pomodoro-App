@@ -2,16 +2,15 @@ function Task(name, duration, lengthOfCycle, id) {
   this.id = id;
   this.name = name;
   this.duration = duration;
+  this.completedCycles = 0;
   this.lengthOfCycle = lengthOfCycle;
   this.isCompleted = false;
 }
-Task.index = 0; // Zaczynamy od 0
 
 let tasks = [];
 
 function clearTasks() {
   tasks.length = 0;
-
   // Czyszczenie
   let tasksDisplay = document.getElementById('task-display');
   tasksDisplay.innerHTML = ``;
@@ -50,7 +49,6 @@ function cancelTaskBtn() {
   document.getElementById('taskDuration1').value = 25;
 }
 
-// Function to handle adding a new task
 function addTask() {
   showForm();
   const taskTitle = document.getElementById('taskTitle').value;
@@ -71,12 +69,40 @@ function addTask() {
 
     // Tworzenie zawartości HTML dla taska
     taskDiv.innerHTML = `
-      <h2><strong>Task Name:</strong> ${task.name}</h2>
-      <p><strong>Duration:</strong> ${task.duration} pomodoros</p>
-      <p><strong>Length of Cycle:</strong> ${task.lengthOfCycle} minutes</p>
-      <button class="delete-task">Delete</button>
-      <hr />
+      <div> 
+      <input type="checkbox" id="taskCheckbox" class="checkbox-img">
+      <label for="taskCheckbox" class="label-img">
+      <img src="rest/noCheckmark.png" id="checkboxImage" alt="Checkbox Image"/>
+    </label>
+      <h2>${task.name}</h2>
+      </div>
+      <div>
+      <p> ${task.completedCycles} / ${task.duration}</p>
+      <p style="margin-left:5px" > ${task.lengthOfCycle} min</p>
+      <button class="delete-task">
+      <img class="taskDotBtn" src="rest/three-dots-vertical.svg">
+      </button>
+      </div>
+
     `;
+
+    taskDiv.addEventListener('click', function () {
+      timer.currentTask = task;
+      // Zmiana czasu timera
+      timer.pomodoroTime = task.lengthOfCycle + ':00';
+      const timerDisplay = document.getElementById('timer');
+      timerDisplay.innerHTML = timer.pomodoroTime;
+      // Poprawa inputu w settings
+      document.getElementById('pomodoro_input').value = task.lengthOfCycle;
+      // Zmiana wygladu (wcisniecie)
+      document.querySelectorAll('.task-show').forEach(function (task) {
+        task.classList.remove('clicked');
+      });
+
+      if (!this.classList.contains('clicked')) {
+        this.classList.add('clicked');
+      }
+    });
 
     taskDiv.setAttribute('data-id', task.id);
     let deleteButton = taskDiv.querySelector('.delete-task');
@@ -90,7 +116,18 @@ function addTask() {
     // Dodanie taskDiv do kontenera tasksDisplay
     tasksDisplay.appendChild(taskDiv);
 
-    console.log(tasks);
+    // Checkbox
+    const checkbox = taskDiv.querySelector('#taskCheckbox');
+    const image = taskDiv.querySelector('#checkboxImage');
+
+    checkbox.addEventListener('change', function () {
+      if (checkbox.checked) {
+        image.src = 'rest/doneCheckmark.png'; // Zmieniamy obrazek na zaznaczony
+      } else {
+        image.src = 'rest/noCheckmark.png'; // Przywracamy oryginalny obrazek
+      }
+    });
+
     clearInput();
     showForm();
   } else {
@@ -159,3 +196,29 @@ tasks.forEach(function (task) {
   // Wstawienie <li> do <ul>
   taskList.appendChild(listItem);
 });
+
+// Otwórz modal TASKS
+document
+  .getElementById('openTasksModalBtn')
+  .addEventListener('click', function () {
+    document.getElementById('tasksModal').style.display = 'flex';
+  });
+
+// Zamknij modal
+document
+  .getElementById('closeTasksModalBtn')
+  .addEventListener('click', function () {
+    document.getElementById('showFormButton').style.display = 'block';
+    document.getElementById('taskForm').style.display = 'none';
+    document.getElementById('tasksModal').style.display = 'none';
+  });
+
+// Zamknij modal, gdy klikniesz poza nim
+window.onclick = function (event) {
+  const modal = document.getElementById('tasksModal');
+  if (event.target == modal) {
+    document.getElementById('showFormButton').style.display = 'block';
+    document.getElementById('taskForm').style.display = 'none';
+    modal.style.display = 'none';
+  }
+};

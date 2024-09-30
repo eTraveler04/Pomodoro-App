@@ -11,6 +11,7 @@ const timer = {
   globalnyKolorS: 'rgb(57, 112, 151)',
   globalnyKolorL: 'rgb(56, 133, 138)',
   resztaKolor: 'rgba(255, 255, 255, 0.1)',
+  currentTask: null,
 };
 
 function pomodoro() {
@@ -58,6 +59,24 @@ function startPomodoro() {
     // Gdy licznik dojdzie do zera, zatrzymaj odliczanie
     if (timeLeft < 0) {
       if (timer.state === 'pomodoro') {
+        timer.currentTask.completedCycles++;
+        document.querySelector(timer.currentTask).innerHTML = `
+        <div> 
+        <input type="checkbox" id="taskCheckbox" class="checkbox-img">
+        <label for="taskCheckbox" class="label-img">
+        <img src="rest/noCheckmark.png" id="checkboxImage" alt="Checkbox Image"/>
+      </label>
+        <h2>${task.name}</h2>
+        </div>
+        <div>
+        <p> ${task.completedCycles} / ${task.duration}</p>
+        <p style="margin-left:5px" > ${task.lengthOfCycle} min</p>
+        <button class="delete-task">
+        <img class="taskDotBtn" src="rest/three-dots-vertical.svg">
+        </button>
+        </div>
+  
+      `;
         timer.state = 'short';
         shortBreak();
         console.log('zaczynamy short break');
@@ -180,19 +199,34 @@ alarmList.addEventListener('change', function () {
 const pomodoroTimeControl = document.getElementById('pomodoro_input');
 pomodoroTimeControl.addEventListener('input', function () {
   timer.pomodoroTime = this.value + ':00';
-  const timerDisplay = document.getElementById('timer');
-  timerDisplay.innerHTML = timer.pomodoroTime;
+  if (timer.state === 'pomodoro') {
+    const timerDisplay = document.getElementById('timer');
+    timerDisplay.innerHTML = timer.pomodoroTime;
+  }
 });
 const shortBreakTimeControl = document.getElementById('shortBreak_input');
 shortBreakTimeControl.addEventListener('input', function () {
   timer.shortBreakTime = this.value + ':00';
-  const timerDisplay = document.getElementById('timer');
-  timerDisplay.innerHTML = timer.shortBreakTime;
+  if (timer.state === 'short') {
+    const timerDisplay = document.getElementById('timer');
+    timerDisplay.innerHTML = timer.pomodoroTime;
+  }
 });
 const longBreakTimeControl = document.getElementById('longBreak_input');
 longBreakTimeControl.addEventListener('input', function () {
   timer.longBreakTime = this.value + ':00';
-  const timerDisplay = document.getElementById('timer');
-  timerDisplay.innerHTML = timer.longBreakTime;
+  if (timer.state === 'long') {
+    const timerDisplay = document.getElementById('timer');
+    timerDisplay.innerHTML = timer.pomodoroTime;
+  }
 });
 //----------------------------------------------------------------------------------
+
+const startButton = document.getElementById('pomodoro_btn');
+
+startButton.addEventListener('click', function () {
+  toggleStartStop();
+  let sound = new Audio('rest/click-234708.mp3');
+  sound.volume = 0.15;
+  sound.play();
+});

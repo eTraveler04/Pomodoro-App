@@ -28,7 +28,11 @@
 
       <div class="box">
         <div class="upper_buttons">
-          <button class="toggle-button" id="pomodoro-btn" onclick="pomodoro()">
+          <button
+            class="toggle-button"
+            id="pomodoro-button"
+            onclick="pomodoro()"
+          >
             POMODORO
           </button>
           <button
@@ -50,17 +54,7 @@
           <p id="timer">25:00</p>
         </div>
         <div class="lower_buttons">
-          <button
-            class="start_btn"
-            id="pomodoro_btn"
-            onclick="toggleStartStop()
-             let sound = new Audio('rest/click-234708.mp3');
-             sound.volume = 0.15;
-             sound.play();
-             "
-          >
-            START
-          </button>
+          <button class="start_btn" id="pomodoro_btn">START</button>
         </div>
       </div>
     </div>
@@ -75,7 +69,7 @@
         </div>
         <!-- Button to show the task form -->
         <div class="addTaskBtn">
-          <button id="showFormButton" onclick="showForm()">Add Task</button>
+          <button id="showFormButton" onclick="showForm()">Add New Task</button>
         </div>
 
         <!-- Task input form, initially hidden -->
@@ -84,6 +78,7 @@
             type="text"
             id="taskTitle"
             placeholder="What's the task title?"
+            maxlength="16"
           />
           <p style="font-size: 20px; padding-left: 10px">
             Task Duration (pomodoros)
@@ -117,14 +112,13 @@
           <button id="createTaskBtn" onclick="addTask()">Add</button>
         </div>
 
-        <h1 class="ls">Lista Zadań</h1>
-        <button style="color: black" onclick="clearTasks()">
-          Wyczysc Listę Tasków
-        </button>
-        <div id="task-display"></div>
+        <div class="taskShowDiv">
+          <h1 class="ls">Task List</h1>
+          <button class="clearTasksBtn" onclick="clearTasks()">Clear</button>
+          <div id="task-display"></div>
+        </div>
       </div>
     </div>
-
     <!-- Settings Modal -->
     <div id="settingsModal" class="modal">
       <div class="modal-content">
@@ -212,8 +206,8 @@
         }
       };
     </script>
-    <script src="script/buttons.js"></script>
     <script src="script/tasks.js"></script>
     <script src="script/script.js"></script>
+    <script src="script/buttons.js"></script>
   </body>
 </html>

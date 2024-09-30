@@ -136,4 +136,97 @@
 .task-show {
   background-color: rgba(97, 95, 95, 0.1);
   padding: 10px;
+  width: 450px;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: space-between;
+  position: relative; /* Ważne: pozwala pseudo-elementowi być ograniczonym do tego diva */
+  overflow: hidden;
 }
+/* Tworzymy pseudo-element przed divem */
+.task-show::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%; /* Zmieniamy tylko 5% szerokości diva */
+  height: 100%;
+  background-color: hsl(0, 1%, 61%);
+  transition: width 0.3s ease;
+}
+
+/* Na hover zwiększamy szerokość pseudo-elementu */
+.task-show:hover::before {
+  width: 1%; /* Na hover pseudo-element powiększa się do 50% szerokości */
+}
+/* Styl po kliknięciu, dodajemy klasę "clicked" */
+.task-show.clicked::before {
+  width: 1%; /* Rozszerzamy pseudo-element na stałe */
+  background-color: black;
+}
+
+.task-show.clicked {
+  background-color: hsl(0, 4%, 81%);
+
+  transition: background-color 0.2s ease; /* Płynna zmiana wysokości */
+}
+.taskShowDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.task-show div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.task-show p {
+  font-size: 20px;
+}
+
+.clearTasksBtn {
+  color: black;
+  background-color: hsl(0, 74%, 59%);
+}
+
+.taskDotBtn {
+  height: 20px;
+  width: 20px;
+}
+
+/* Checkbox dla Taska  */
+
+.checkbox-img {
+  display: none; /* Ukrywamy checkboxy */
+}
+
+.label-img {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.label-img img {
+  margin-top: 15px;
+  width: 100%;
+  height: 100%;
+}
+
+/* _______________________________________________________ */
+
+/* Co chce zeby robił moj task?
+
+  - Bierzemy pierwszy nie zrobiony task,
+  Timer przyjmuje odpowidnia wartosc. 
+  Jezeli dojdziemy do celu cyklow, zmieniamy ikone checkboxa na done.
+  Mozliwosc edycji taska. 
+  Wybor taska, który w tym momencie wykonujemy. (Czy ten task moze 
+  byc not done?) 
+
+  */
